@@ -104,8 +104,9 @@ instances:
         - wget -P /etc/apt/sources.list.d/. https://www.beegfs.io/release/beegfs_7.3.3/dists/beegfs-focal.list
         - wget -q https://www.beegfs.io/release/beegfs_7.3.3/gpg/GPG-KEY-beegfs -O- | apt-key add -
         - apt-get update
-        - apt-get install beegfs-client beegfs-helperd beegfs-utils -y
+        - apt-get install beegfs-client-dkms beegfs-helperd beegfs-utils -y
         - sed -i 's/connDisableAuthentication = false/connDisableAuthentication = true/' /etc/beegfs/beegfs-helperd.conf
+        - systemctl start beegfs-helperd && systemctl enable beegfs-helperd        
         - echo "=== Installing prerequisites for the Minikube Linux none (bare-metal) driver ==="
         - apt-get install conntrack -y
         - wget -P /tmp/ https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.27.0/crictl-v1.27.0-linux-amd64.tar.gz && tar -zxvf /tmp/crictl-v1.27.0-linux-amd64.tar.gz -C /tmp/. && mv /tmp/crictl /usr/local/bin/.
